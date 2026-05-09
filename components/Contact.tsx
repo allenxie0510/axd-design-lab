@@ -18,29 +18,7 @@ export default function Contact() {
     try {
       // 使用 Formspree - 请替换 YOUR_FORM_ID 为你的真实表单 ID
       // 获取方式：登录 https://formspree.io → 创建表单 → 复制 ID
-      const FORMSPREE_ID = 'YOUR_FORM_ID' // ← 替换这里，例如：'xnqevjdr'
-      
-      if (FORMSPREE_ID === 'YOUR_FORM_ID') {
-        // 如果没有配置 FormspREE，使用 mailto 方案
-        const subject = encodeURIComponent(`[AXD Design Lab] New Message from ${formData.name}`)
-        const body = encodeURIComponent(
-          `Name: ${formData.name}\n` +
-          `Email: ${formData.email}\n` +
-          `Project Type: ${formData.projectType}\n\n` +
-          `Message:\n${formData.message}`
-        )
-        window.location.href = `mailto:136068736@qq.com?subject=${subject}&body=${body}`
-        setStatus('success')
-        setFormData({
-          name: '',
-          email: '',
-          projectType: 'Brand Design',
-          message: ''
-        })
-        return
-      }
-
-      const response = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
+      const response = await fetch('https://formspree.io/f/mojrkrzq', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
