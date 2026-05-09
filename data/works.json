@@ -1,0 +1,104 @@
+[
+  {
+    "id": "nova-tech",
+    "title": "Nova Tech",
+    "category": "Brand Identity",
+    "description": "AI Startup Branding",
+    "fullDescription": "Nova Tech is an innovative AI startup focused on natural language processing. We created a complete brand identity including logo, color system, typography, and brand guidelines. The visual language reflects their cutting-edge technology while maintaining approachability.",
+    "image": "https://images.unsplash.com/photo-1634942537034-2531766767d1?w=1200&h=800&fit=crop",
+    "gallery": [
+      "https://images.unsplash.com/photo-1634942537034-2531766767d1?w=800&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=800&h=600&fit=crop"
+    ],
+    "services": ["Brand Strategy", "Visual Identity", "Brand Guidelines"],
+    "year": "2024",
+    "client": "Nova Tech Inc.",
+    "link": "#"
+  },
+  {
+    "id": "finflow",
+    "title": "FinFlow",
+    "category": "UI/UX Design",
+    "description": "Fintech App Design",
+    "fullDescription": "FinFlow is a next-generation mobile banking application. We designed an intuitive interface that simplifies complex financial operations. The design focuses on clarity, security, and user trust through thoughtful visual hierarchy and micro-interactions.",
+    "image": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=1200&h=800&fit=crop",
+    "gallery": [
+      "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1558655146-9f40138edfeb?w=800&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1618005198919-d3d4b5a92ead?w=800&h=600&fit=crop"
+    ],
+    "services": ["UI Design", "UX Research", "Prototyping"],
+    "year": "2024",
+    "client": "FinFlow Financial",
+    "link": "#"
+  },
+  {
+    "id": "artisan",
+    "title": "Artisan",
+    "category": "Web Design",
+    "description": "E-commerce Platform",
+    "fullDescription": "Artisan is a premium e-commerce platform for handcrafted goods. We designed a digital experience that mirrors the quality and attention to detail of the products. The interface combines elegant typography with immersive product photography.",
+    "image": "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=1200&h=800&fit=crop",
+    "gallery": [
+      "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=800&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1558655146-d09347e92766?w=800&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1634942537034-2531766767d1?w=800&h=600&fit=crop"
+    ],
+    "services": ["Web Design", "E-commerce", "Visual Design"],
+    "year": "2023",
+    "client": "Artisan Collective",
+    "link": "#"
+  },
+  {
+    "id": "pulse-festival",
+    "title": "Pulse Festival",
+    "category": "Visual Identity",
+    "description": "Music Festival Branding",
+    "fullDescription": "Pulse Festival is an annual electronic music festival. We developed a dynamic visual identity that captures the energy and rhythm of electronic music. The system includes stage design, merchandise, digital assets, and motion graphics.",
+    "image": "https://images.unsplash.com/photo-1558655146-9f40138edfeb?w=1200&h=800&fit=crop",
+    "gallery": [
+      "https://images.unsplash.com/photo-1558655146-9f40138edfeb?w=800&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=800&h=600&fit=crop"
+    ],
+    "services": ["Visual Identity", "Motion Design", "Environmental Design"],
+    "year": "2023",
+    "client": "Pulse Events",
+    "link": "#"
+  },
+  {
+    "id": "exhibition",
+    "title": "Exhibition",
+    "category": "Graphic Design",
+    "description": "Poster Design",
+    "fullDescription": "A series of posters for contemporary art exhibitions. Each poster is a unique piece of art that reflects the theme of the exhibition while maintaining a cohesive visual language across the series.",
+    "image": "https://images.unsplash.com/photo-1558655146-d09347e92766?w=1200&h=800&fit=crop",
+    "gallery": [
+      "https://images.unsplash.com/photo-1558655146-d09347e92766?w=800&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1618005198919-d3d4b5a92ead?w=800&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1634942537034-2531766767d1?w=800&h=600&fit=crop"
+    ],
+    "services": ["Poster Design", "Typography", "Art Direction"],
+    "year": "2023",
+    "client": "Museum of Modern Art",
+    "link": "#"
+  },
+  {
+    "id": "kinoishi",
+    "title": "KINOISHI",
+    "category": "Packaging Design",
+    "description": "Product Packaging",
+    "fullDescription": "KINOISHI is a premium Japanese skincare brand. We designed packaging that reflects the brand's philosophy of natural beauty and traditional craftsmanship. The minimalist design uses subtle textures and elegant typography.",
+    "image": "https://images.unsplash.com/photo-1618005198919-d3d4b5a92ead?w=1200&h=800&fit=crop",
+    "gallery": [
+      "https://images.unsplash.com/photo-1618005198919-d3d4b5a92ead?w=800&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1558655146-d09347e92766?w=800&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=800&h=600&fit=crop"
+    ],
+    "services": ["Packaging Design", "Brand Identity", "Print Design"],
+    "year": "2024",
+    "client": "KINOISHI Beauty",
+    "link": "#"
+  }
+]

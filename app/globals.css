@@ -1,0 +1,160 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background-color: #FFFFFF;
+  color: #000000;
+  overflow-x: hidden;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #FFFFFF;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #CCCCCC;
+}
+
+/* Typography */
+.font-display {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-weight: 300;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+.font-heading {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+
+/* Sharp corners */
+* {
+  border-radius: 0 !important;
+}
+
+/* Button styles */
+.btn-primary {
+  background: #000000;
+  color: #FFFFFF;
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  background: #333333;
+}
+
+.btn-secondary {
+  border: 1px solid #000000;
+  color: #000000;
+  transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+  background: #000000;
+  color: #FFFFFF;
+}
+
+/* Work card */
+.work-card {
+  transition: all 0.4s ease;
+}
+
+.work-card:hover {
+  transform: translateY(-4px);
+}
+
+.work-card:hover .work-image {
+  transform: scale(1.03);
+}
+
+.work-image {
+  transition: transform 0.6s ease;
+}
+
+/* Link underline */
+.link-underline {
+  position: relative;
+}
+
+.link-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: #000000;
+  transition: width 0.3s ease;
+}
+
+.link-underline:hover::after {
+  width: 100%;
+}
+
+/* Service card */
+.service-card {
+  border: 1px solid #E0E0E0;
+  transition: all 0.3s ease;
+}
+
+.service-card:hover {
+  border-color: #000000;
+}
+
+/* Testimonial */
+.testimonial-card {
+  border: 1px solid #E0E0E0;
+}
+
+/* Nav blur */
+.nav-blur {
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+/* Fade in animation */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeInUp 0.8s ease forwards;
+}
+
+.delay-100 {
+  animation-delay: 0.1s;
+}
+
+.delay-200 {
+  animation-delay: 0.2s;
+}
+
+.delay-300 {
+  animation-delay: 0.3s;
+}
