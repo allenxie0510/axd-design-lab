@@ -3,6 +3,7 @@ import Footer from '@/components/Footer'
 import Link from 'next/link'
 import works from '@/data/works.json'
 import { notFound } from 'next/navigation'
+import GalleryLightbox from '@/components/GalleryLightbox'
 
 interface Props {
   params: { id: string }
@@ -37,7 +38,7 @@ export default function WorkDetailPage({ params }: Props) {
       {/* Main Image */}
       <section className="py-20">
         <div className="max-w-[1400px] mx-auto px-6">
-          <div className="aspect-[16/9] bg-surface overflow-hidden">
+          <div className="aspect-[16/9] bg-surface overflow-hidden cursor-pointer">
             <img
               src={work.image}
               alt={work.title}
@@ -87,17 +88,10 @@ export default function WorkDetailPage({ params }: Props) {
       <section className="py-20 bg-surface">
         <div className="max-w-[1400px] mx-auto px-6">
           <h2 className="font-heading text-3xl md:text-4xl mb-12">Project Gallery</h2>
-          <div className="grid md:grid-cols-3 gap-6">
-            {work.gallery.map((image, index) => (
-              <div key={index} className="aspect-[4/3] bg-white overflow-hidden">
-                <img
-                  src={image}
-                  alt={`${work.title} - Image ${index + 1}`}
-                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
-                />
-              </div>
-            ))}
-          </div>
+          <GalleryLightbox 
+            images={work.gallery}
+            className="grid md:grid-cols-3 gap-6"
+          />
         </div>
       </section>
 
