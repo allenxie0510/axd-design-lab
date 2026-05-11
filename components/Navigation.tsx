@@ -32,23 +32,30 @@ export default function Navigation() {
       </div>
       
       {/* Mobile Menu */}
-      <div className={`fixed top-0 right-0 w-80 h-full border-l border-border z-50 p-8 transform transition-transform duration-300 ${mobileMenuOpen ? 'translate-x-0' : 'translate-x-full'}`} style={{ backgroundColor: '#FFFFFF' }}>
-        <button 
-          onClick={() => setMobileMenuOpen(false)}
-          className="absolute top-6 right-6 text-secondary hover:text-primary"
+      {mobileMenuOpen && (
+        <div 
+          className="fixed inset-0 z-[100]"
+          style={{ backgroundColor: '#FFFFFF' }}
         >
-          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M6 18L18 6M6 6l12 12"/>
-          </svg>
-        </button>
-        <div className="flex flex-col gap-8 mt-16">
-          <Link href="/works" onClick={() => setMobileMenuOpen(false)} className="text-2xl font-semibold text-primary">Works</Link>
-          <Link href="/#services" onClick={() => setMobileMenuOpen(false)} className="text-2xl font-semibold text-primary">Services</Link>
-          <Link href="/#process" onClick={() => setMobileMenuOpen(false)} className="text-2xl font-semibold text-primary">Process</Link>
-          <Link href="/#about" onClick={() => setMobileMenuOpen(false)} className="text-2xl font-semibold text-primary">About</Link>
-          <Link href="/#contact" onClick={() => setMobileMenuOpen(false)} className="btn-primary px-6 py-3 text-sm font-medium text-center mt-4">Contact</Link>
+          <div className="absolute top-0 right-0 w-80 h-full border-l border-border p-8">
+            <button 
+              onClick={() => setMobileMenuOpen(false)}
+              className="absolute top-6 right-6 text-secondary hover:text-primary"
+            >
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M6 18L18 6M6 6l12 12"/>
+              </svg>
+            </button>
+            <div className="flex flex-col gap-8 mt-16">
+              <Link href="/works" onClick={() => setMobileMenuOpen(false)} className="text-2xl font-semibold text-primary">Works</Link>
+              <Link href="/#services" onClick={() => setMobileMenuOpen(false)} className="text-2xl font-semibold text-primary">Services</Link>
+              <Link href="/#process" onClick={() => setMobileMenuOpen(false)} className="text-2xl font-semibold text-primary">Process</Link>
+              <Link href="/#about" onClick={() => setMobileMenuOpen(false)} className="text-2xl font-semibold text-primary">About</Link>
+              <Link href="/#contact" onClick={() => setMobileMenuOpen(false)} className="btn-primary px-6 py-3 text-sm font-medium text-center mt-4">Contact</Link>
+            </div>
+          </div>
         </div>
-      </div>
+      )}
     </nav>
   )
 }
