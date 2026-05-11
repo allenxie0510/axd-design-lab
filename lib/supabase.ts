@@ -26,12 +26,13 @@ export const supabase = createClient(
 )
 
 // Works 表类型定义
+// Note: PostgreSQL converts column names to lowercase, so fulldescription is used instead of fullDescription
 export interface Work {
   id: string
   title: string
   category: string
   description: string
-  fullDescription?: string
+  fulldescription?: string
   image: string
   gallery: string[]
   services: string[]

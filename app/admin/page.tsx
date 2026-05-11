@@ -127,6 +127,7 @@ export default function AdminPage() {
       title: 'New Work',
       category: 'Brand Identity',
       description: 'Description',
+      fulldescription: 'Full description',
       image: 'https://images.unsplash.com/photo-1634942537034-2531766767d1?w=1200&h=800&fit=crop',
       gallery: [] as string[],
       services: [] as string[],
@@ -406,8 +407,8 @@ export default function AdminPage() {
                   <label className="block text-xs uppercase tracking-wider text-muted mb-2">Full Description</label>
                   <textarea
                     rows={4}
-                    value={editingWork.fullDescription}
-                    onChange={(e) => setEditingWork({ ...editingWork, fullDescription: e.target.value })}
+                    value={editingWork.fulldescription || ''}
+                    onChange={(e) => setEditingWork({ ...editingWork, fulldescription: e.target.value })}
                     className="w-full border border-border px-4 py-3 focus:outline-none focus:border-black resize-none"
                   />
                 </div>
