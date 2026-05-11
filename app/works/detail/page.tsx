@@ -112,7 +112,7 @@ function WorkDetailContent() {
           <div className="grid lg:grid-cols-3 gap-16">
             <div className="lg:col-span-2">
               <h2 className="font-heading text-3xl md:text-4xl mb-8">About the Project</h2>
-              <p className="text-secondary text-lg leading-relaxed mb-8">{work.fullDescription}</p>
+              <p className="text-secondary text-lg leading-relaxed mb-8">{work.fullDescription || work.description}</p>
               
               <h3 className="text-xl font-semibold mb-4">Services</h3>
               <div className="flex flex-wrap gap-3">

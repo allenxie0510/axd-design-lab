@@ -127,7 +127,6 @@ export default function AdminPage() {
       title: 'New Work',
       category: 'Brand Identity',
       description: 'Description',
-      fullDescription: 'Full description',
       image: 'https://images.unsplash.com/photo-1634942537034-2531766767d1?w=1200&h=800&fit=crop',
       gallery: [] as string[],
       services: [] as string[],

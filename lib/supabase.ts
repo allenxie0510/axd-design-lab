@@ -31,7 +31,7 @@ export interface Work {
   title: string
   category: string
   description: string
-  fullDescription: string
+  fullDescription?: string
   image: string
   gallery: string[]
   services: string[]
