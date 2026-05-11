@@ -3,16 +3,14 @@
 import Navigation from '@/components/Navigation'
 import Footer from '@/components/Footer'
 import Link from 'next/link'
-import { notFound } from 'next/navigation'
-import { useState, useEffect } from 'react'
+import { useSearchParams } from 'next/navigation'
+import { useState, useEffect, Suspense } from 'react'
 import staticWorks from '@/data/works.json'
 import GalleryLightbox from '@/components/GalleryLightbox'
 
-interface WorkDetailClientProps {
-  workId: string
-}
-
-export default function WorkDetailClient({ workId }: WorkDetailClientProps) {
+function WorkDetailContent() {
+  const searchParams = useSearchParams()
+  const workId = searchParams.get('id')
   const [works, setWorks] = useState(staticWorks)
 
   useEffect(() => {
@@ -32,7 +30,21 @@ export default function WorkDetailClient({ workId }: WorkDetailClientProps) {
   const work = works.find((w) => w.id === workId)
 
   if (!work) {
-    notFound()
+    return (
+      <main>
+        <Navigation />
+        <section className="pt-32 pb-20 min-h-[60vh] flex items-center justify-center">
+          <div className="text-center">
+            <h1 className="font-heading text-4xl mb-4">Work Not Found</h1>
+            <p className="text-muted mb-8">The work you are looking for does not exist.</p>
+            <Link href="/works" className="btn-primary px-6 py-3 text-sm font-medium">
+              Back to Works
+            </Link>
+          </div>
+        </section>
+        <Footer />
+      </main>
+    )
   }
 
   return (
@@ -126,5 +138,26 @@ export default function WorkDetailClient({ workId }: WorkDetailClientProps) {
 
       <Footer />
     </main>
+  )
+}
+
+export default function WorkDetailPage() {
+  return (
+    <Suspense fallback={
+      <main>
+        <Navigation />
+        <section className="pt-32 pb-20 min-h-[60vh] flex items-center justify-center">
+          <div className="text-center">
+            <div className="animate-pulse">
+              <div className="h-8 w-48 bg-gray-200 mx-auto mb-4"></div>
+              <div className="h-4 w-32 bg-gray-200 mx-auto"></div>
+            </div>
+          </div>
+        </section>
+        <Footer />
+      </main>
+    }>
+      <WorkDetailContent />
+    </Suspense>
   )
 }

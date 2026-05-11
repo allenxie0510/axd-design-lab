@@ -39,7 +39,7 @@ export default function Works() {
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {works.map((work) => (
-            <Link href={`/works/${work.id}`} key={work.id} className="work-card group cursor-pointer">
+            <Link href={`/works/detail?id=${work.id}`} key={work.id} className="work-card group cursor-pointer">
               <div className="relative overflow-hidden aspect-[4/3] mb-6 bg-surface">
                 <img
                   src={work.image}
