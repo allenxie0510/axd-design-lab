@@ -21,8 +21,6 @@ export default function Works() {
     }
   }, [])
 
-  const displayWorks = works.slice(0, 6)
-
   return (
     <section id="works" className="py-32 lg:py-40">
       <div className="max-w-[1400px] mx-auto px-6">
@@ -40,7 +38,7 @@ export default function Works() {
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {displayWorks.map((work) => (
+          {works.map((work) => (
             <Link href={`/works/${work.id}`} key={work.id} className="work-card group cursor-pointer">
               <div className="relative overflow-hidden aspect-[4/3] mb-6 bg-surface">
                 <img

@@ -30,9 +30,20 @@ export default function AdminPage() {
 
   const handleSave = () => {
     if (editingWork) {
-      const updated = worksList.map((w: any) =>
-        w.id === editingWork.id ? editingWork : w
-      )
+      let updated
+      if (editingWork.id.startsWith('new-')) {
+        // Generate a clean ID for new works
+        const cleanId = editingWork.title
+          .toLowerCase()
+          .replace(/[^a-z0-9]+/g, '-')
+          .replace(/^-|-$/g, '') || `work-${Date.now()}`
+        const newWork = { ...editingWork, id: cleanId }
+        updated = [...worksList, newWork]
+      } else {
+        updated = worksList.map((w: any) =>
+          w.id === editingWork.id ? editingWork : w
+        )
+      }
       setWorksList(updated)
       
       // Save to localStorage for persistence
