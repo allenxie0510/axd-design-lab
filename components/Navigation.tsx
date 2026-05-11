@@ -32,7 +32,7 @@ export default function Navigation() {
       </div>
       
       {/* Mobile Menu */}
-      <div className={`fixed top-0 right-0 w-80 h-full bg-white border-l border-border z-50 p-8 transform transition-transform duration-300 ${mobileMenuOpen ? 'translate-x-0' : 'translate-x-full'}`}>
+      <div className={`fixed top-0 right-0 w-80 h-full bg-white border-l border-border z-50 p-8 transform transition-transform duration-300 mobile-menu ${mobileMenuOpen ? 'translate-x-0' : 'translate-x-full'}`}>
         <button 
           onClick={() => setMobileMenuOpen(false)}
           className="absolute top-6 right-6 text-secondary hover:text-primary"

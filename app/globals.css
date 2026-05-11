@@ -131,6 +131,35 @@ body {
   -webkit-backdrop-filter: blur(10px);
 }
 
+/* Mobile menu - ensure white background */
+.mobile-menu {
+  background-color: #FFFFFF !important;
+}
+
+/* Mobile image full width */
+@media (max-width: 768px) {
+  .work-card img,
+  .work-image {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  
+  /* Remove side padding on mobile for works section */
+  #works .max-w-\[1400px\],
+  #works .px-6 {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+  
+  /* But keep padding for text content */
+  #works h2,
+  #works h3,
+  #works p {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+
 /* Fade in animation */
 @keyframes fadeInUp {
   from {
