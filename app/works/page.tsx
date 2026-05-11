@@ -1,9 +1,28 @@
+'use client'
+
 import Navigation from '@/components/Navigation'
 import Footer from '@/components/Footer'
 import Link from 'next/link'
-import works from '@/data/works.json'
+import { useState, useEffect } from 'react'
+import staticWorks from '@/data/works.json'
 
 export default function WorksPage() {
+  const [works, setWorks] = useState(staticWorks)
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('axd_works')
+      if (saved) {
+        try {
+          const parsed = JSON.parse(saved)
+          setWorks(parsed)
+        } catch (e) {
+          console.error('Failed to parse saved works:', e)
+        }
+      }
+    }
+  }, [])
+
   return (
     <main>
       <Navigation />

@@ -1,9 +1,28 @@
 'use client'
 
 import Link from 'next/link'
-import works from '@/data/works.json'
+import { useState, useEffect } from 'react'
+import staticWorks from '@/data/works.json'
 
 export default function Works() {
+  const [works, setWorks] = useState(staticWorks)
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('axd_works')
+      if (saved) {
+        try {
+          const parsed = JSON.parse(saved)
+          setWorks(parsed)
+        } catch (e) {
+          console.error('Failed to parse saved works:', e)
+        }
+      }
+    }
+  }, [])
+
+  const displayWorks = works.slice(0, 6)
+
   return (
     <section id="works" className="py-32 lg:py-40">
       <div className="max-w-[1400px] mx-auto px-6">
@@ -21,7 +40,7 @@ export default function Works() {
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {works.slice(0, 6).map((work) => (
+          {displayWorks.map((work) => (
             <Link href={`/works/${work.id}`} key={work.id} className="work-card group cursor-pointer">
               <div className="relative overflow-hidden aspect-[4/3] mb-6 bg-surface">
                 <img
