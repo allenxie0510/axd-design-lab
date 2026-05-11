@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@formspree/react": "^3.0.0",
+    "@supabase/supabase-js": "^2.105.4",
     "autoprefixer": "^10.4.16",
     "gray-matter": "^4.0.3",
     "lucide-react": "^0.294.0",

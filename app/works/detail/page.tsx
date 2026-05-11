@@ -7,27 +7,52 @@ import { useSearchParams } from 'next/navigation'
 import { useState, useEffect, Suspense } from 'react'
 import staticWorks from '@/data/works.json'
 import GalleryLightbox from '@/components/GalleryLightbox'
+import { getWork, type Work } from '@/lib/supabase'
 
 function WorkDetailContent() {
   const searchParams = useSearchParams()
   const workId = searchParams.get('id')
-  const [works, setWorks] = useState(staticWorks)
+  const [work, setWork] = useState<Work | null>(null)
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('axd_works')
-      if (saved) {
-        try {
-          const parsed = JSON.parse(saved)
-          setWorks(parsed)
-        } catch (e) {
-          console.error('Failed to parse saved works:', e)
+    async function loadWork() {
+      if (!workId) {
+        setLoading(false)
+        return
+      }
+
+      try {
+        const data = await getWork(workId)
+        if (data) {
+          setWork(data)
         }
+      } catch (e) {
+        console.error('Failed to load work from Supabase:', e)
+      } finally {
+        setLoading(false)
       }
     }
-  }, [])
 
-  const work = works.find((w) => w.id === workId)
+    loadWork()
+  }, [workId])
+
+  if (loading) {
+    return (
+      <main>
+        <Navigation />
+        <section className="pt-32 pb-20 min-h-[60vh] flex items-center justify-center">
+          <div className="text-center">
+            <div className="animate-pulse">
+              <div className="h-8 w-48 bg-gray-200 mx-auto mb-4"></div>
+              <div className="h-4 w-32 bg-gray-200 mx-auto"></div>
+            </div>
+          </div>
+        </section>
+        <Footer />
+      </main>
+    )
+  }
 
   if (!work) {
     return (

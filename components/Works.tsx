@@ -3,23 +3,48 @@
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
 import staticWorks from '@/data/works.json'
+import { getWorks, type Work } from '@/lib/supabase'
 
 export default function Works() {
-  const [works, setWorks] = useState(staticWorks)
+  const [works, setWorks] = useState<Work[]>(staticWorks)
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('axd_works')
-      if (saved) {
-        try {
-          const parsed = JSON.parse(saved)
-          setWorks(parsed)
-        } catch (e) {
-          console.error('Failed to parse saved works:', e)
+    async function loadWorks() {
+      try {
+        const data = await getWorks()
+        if (data && data.length > 0) {
+          setWorks(data)
         }
+      } catch (e) {
+        console.error('Failed to load works from Supabase:', e)
+      } finally {
+        setLoading(false)
       }
     }
+
+    loadWorks()
   }, [])
+
+  if (loading) {
+    return (
+      <section id="works" className="py-32 lg:py-40">
+        <div className="max-w-[1400px] mx-auto px-6">
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-16">
+            <div>
+              <p className="text-xs font-medium tracking-[0.3em] uppercase text-muted mb-4">Selected Works</p>
+              <h2 className="font-heading text-4xl md:text-5xl lg:text-6xl">Portfolio</h2>
+            </div>
+          </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {staticWorks.map((work) => (
+              <div key={work.id} className="aspect-[4/3] bg-surface animate-pulse" />
+            ))}
+          </div>
+        </div>
+      </section>
+    )
+  }
 
   return (
     <section id="works" className="py-32 lg:py-40">
