@@ -48,7 +48,7 @@ export async function getWorks(): Promise<{ data: Work[]; error: string | null }
   }
 
   const { data, error } = await supabase
-    .from('works')
+    .from('axddesignlabworks')
     .select('*')
     .order('created_at', { ascending: false })
 
@@ -67,7 +67,7 @@ export async function getWork(id: string): Promise<{ data: Work | null; error: s
   }
 
   const { data, error } = await supabase
-    .from('works')
+    .from('axddesignlabworks')
     .select('*')
     .eq('id', id)
     .single()
@@ -87,7 +87,7 @@ export async function createWork(work: Omit<Work, 'created_at'>): Promise<{ data
   }
 
   const { data, error } = await supabase
-    .from('works')
+    .from('axddesignlabworks')
     .insert([work])
     .select()
     .single()
@@ -107,7 +107,7 @@ export async function updateWork(id: string, work: Partial<Work>): Promise<{ dat
   }
 
   const { data, error } = await supabase
-    .from('works')
+    .from('axddesignlabworks')
     .update(work)
     .eq('id', id)
     .select()
@@ -128,7 +128,7 @@ export async function deleteWork(id: string): Promise<{ success: boolean; error:
   }
 
   const { error } = await supabase
-    .from('works')
+    .from('axddesignlabworks')
     .delete()
     .eq('id', id)
 
