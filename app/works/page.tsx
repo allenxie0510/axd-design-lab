@@ -14,8 +14,10 @@ export default function WorksPage() {
   useEffect(() => {
     async function loadWorks() {
       try {
-        const data = await getWorks()
-        if (data && data.length > 0) {
+        const { data, error } = await getWorks()
+        if (error) {
+          console.error('Failed to load works from Supabase:', error)
+        } else if (data && data.length > 0) {
           setWorks(data)
         }
       } catch (e) {

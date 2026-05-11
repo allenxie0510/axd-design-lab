@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import Navigation from '@/components/Navigation'
 import Footer from '@/components/Footer'
 import staticWorks from '@/data/works.json'
-import { getWorks, createWork, updateWork, deleteWork, type Work } from '@/lib/supabase'
+import { getWorks, createWork, updateWork, deleteWork, isSupabaseConfigured, type Work } from '@/lib/supabase'
 
 export default function AdminPage() {
   const [activeTab, setActiveTab] = useState('works')
@@ -13,23 +13,32 @@ export default function AdminPage() {
   const [editingWork, setEditingWork] = useState<any>(null)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [saveStatus, setSaveStatus] = useState('')
+  const [configError, setConfigError] = useState('')
 
   // 加载作品列表
   useEffect(() => {
     async function loadWorks() {
       try {
-        const data = await getWorks()
-        if (data && data.length > 0) {
+        const { data, error } = await getWorks()
+        if (error) {
+          setConfigError(`Database error: ${error}. Please make sure you have created the 'works' table in Supabase and set the environment variables.`)
+        } else if (data && data.length > 0) {
           setWorksList(data)
         }
       } catch (e) {
         console.error('Failed to load works:', e)
+        setConfigError('Failed to connect to database. Please check your Supabase configuration.')
       } finally {
         setLoading(false)
       }
     }
 
-    loadWorks()
+    if (!isSupabaseConfigured) {
+      setConfigError('Supabase is not configured. Please set NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY environment variables.')
+      setLoading(false)
+    } else {
+      loadWorks()
+    }
   }, [])
 
   const handleEdit = (work: any) => {
@@ -39,6 +48,11 @@ export default function AdminPage() {
 
   const handleSave = async () => {
     if (!editingWork) return
+
+    if (!isSupabaseConfigured) {
+      setSaveStatus('Error: Supabase not configured. Please check environment variables.')
+      return
+    }
 
     setSaveStatus('Saving...')
 
@@ -53,49 +67,58 @@ export default function AdminPage() {
         const newWork = { ...editingWork, id: cleanId }
         delete newWork.created_at
         
-        const created = await createWork(newWork)
-        if (created) {
+        const { data: created, error } = await createWork(newWork)
+        if (error) {
+          setSaveStatus(`Error: ${error}`)
+        } else if (created) {
           setWorksList([created, ...worksList])
           setSaveStatus('Created successfully!')
-        } else {
-          setSaveStatus('Failed to create')
+          setTimeout(() => {
+            setIsModalOpen(false)
+            setEditingWork(null)
+            setSaveStatus('')
+          }, 1000)
         }
       } else {
         // 更新现有作品
-        const updated = await updateWork(editingWork.id, editingWork)
-        if (updated) {
+        const { data: updated, error } = await updateWork(editingWork.id, editingWork)
+        if (error) {
+          setSaveStatus(`Error: ${error}`)
+        } else if (updated) {
           setWorksList(worksList.map((w) => w.id === editingWork.id ? updated : w))
           setSaveStatus('Updated successfully!')
-        } else {
-          setSaveStatus('Failed to update')
+          setTimeout(() => {
+            setIsModalOpen(false)
+            setEditingWork(null)
+            setSaveStatus('')
+          }, 1000)
         }
       }
-
-      setTimeout(() => {
-        setIsModalOpen(false)
-        setEditingWork(null)
-        setSaveStatus('')
-      }, 1000)
     } catch (e) {
       console.error('Save error:', e)
-      setSaveStatus('Error saving')
+      setSaveStatus(`Error: ${e instanceof Error ? e.message : 'Unknown error'}`)
     }
   }
 
   const handleDelete = async (id: string) => {
     if (!confirm('Are you sure you want to delete this work?')) return
 
-    setSaveStatus('Deleting...')
-    const success = await deleteWork(id)
-    
-    if (success) {
-      setWorksList(worksList.filter((w) => w.id !== id))
-      setSaveStatus('Deleted successfully!')
-    } else {
-      setSaveStatus('Failed to delete')
+    if (!isSupabaseConfigured) {
+      setSaveStatus('Error: Supabase not configured.')
+      return
     }
 
-    setTimeout(() => setSaveStatus(''), 2000)
+    setSaveStatus('Deleting...')
+    const { success, error } = await deleteWork(id)
+    
+    if (error) {
+      setSaveStatus(`Error: ${error}`)
+    } else if (success) {
+      setWorksList(worksList.filter((w) => w.id !== id))
+      setSaveStatus('Deleted successfully!')
+    }
+
+    setTimeout(() => setSaveStatus(''), 3000)
   }
 
   const handleAdd = () => {
@@ -192,6 +215,13 @@ export default function AdminPage() {
               Add New Work
             </button>
           </div>
+
+          {/* Config error message */}
+          {configError && (
+            <div className="mb-4 px-4 py-3 text-sm bg-red-100 text-red-800 border border-red-200">
+              <strong>Configuration Error:</strong> {configError}
+            </div>
+          )}
 
           {/* Status message */}
           {saveStatus && (

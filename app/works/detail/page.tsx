@@ -23,8 +23,10 @@ function WorkDetailContent() {
       }
 
       try {
-        const data = await getWork(workId)
-        if (data) {
+        const { data, error } = await getWork(workId)
+        if (error) {
+          console.error('Failed to load work from Supabase:', error)
+        } else if (data) {
           setWork(data)
         }
       } catch (e) {

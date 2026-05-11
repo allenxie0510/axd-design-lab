@@ -7,11 +7,23 @@ import { createClient } from '@supabase/supabase-js'
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || ''
 const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || ''
 
-if (!supabaseUrl || !supabaseKey) {
+// 检查配置状态
+export const isSupabaseConfigured = !!supabaseUrl && !!supabaseKey && !supabaseUrl.includes('placeholder')
+
+if (!isSupabaseConfigured) {
   console.warn('Supabase credentials not configured. Please set NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY environment variables.')
 }
 
-export const supabase = createClient(supabaseUrl || 'https://placeholder.supabase.co', supabaseKey || 'placeholder')
+export const supabase = createClient(
+  supabaseUrl || 'https://placeholder.supabase.co', 
+  supabaseKey || 'placeholder',
+  {
+    auth: {
+      persistSession: false,
+      autoRefreshToken: false,
+    }
+  }
+)
 
 // Works 表类型定义
 export interface Work {
@@ -30,7 +42,11 @@ export interface Work {
 }
 
 // 获取所有作品
-export async function getWorks(): Promise<Work[]> {
+export async function getWorks(): Promise<{ data: Work[]; error: string | null }> {
+  if (!isSupabaseConfigured) {
+    return { data: [], error: 'Supabase not configured. Please check environment variables.' }
+  }
+
   const { data, error } = await supabase
     .from('works')
     .select('*')
@@ -38,14 +54,18 @@ export async function getWorks(): Promise<Work[]> {
 
   if (error) {
     console.error('Error fetching works:', error)
-    return []
+    return { data: [], error: error.message }
   }
 
-  return data || []
+  return { data: data || [], error: null }
 }
 
 // 获取单个作品
-export async function getWork(id: string): Promise<Work | null> {
+export async function getWork(id: string): Promise<{ data: Work | null; error: string | null }> {
+  if (!isSupabaseConfigured) {
+    return { data: null, error: 'Supabase not configured. Please check environment variables.' }
+  }
+
   const { data, error } = await supabase
     .from('works')
     .select('*')
@@ -54,14 +74,18 @@ export async function getWork(id: string): Promise<Work | null> {
 
   if (error) {
     console.error('Error fetching work:', error)
-    return null
+    return { data: null, error: error.message }
   }
 
-  return data
+  return { data, error: null }
 }
 
 // 创建作品
-export async function createWork(work: Omit<Work, 'created_at'>): Promise<Work | null> {
+export async function createWork(work: Omit<Work, 'created_at'>): Promise<{ data: Work | null; error: string | null }> {
+  if (!isSupabaseConfigured) {
+    return { data: null, error: 'Supabase not configured. Please check environment variables.' }
+  }
+
   const { data, error } = await supabase
     .from('works')
     .insert([work])
@@ -70,14 +94,18 @@ export async function createWork(work: Omit<Work, 'created_at'>): Promise<Work |
 
   if (error) {
     console.error('Error creating work:', error)
-    return null
+    return { data: null, error: error.message }
   }
 
-  return data
+  return { data, error: null }
 }
 
 // 更新作品
-export async function updateWork(id: string, work: Partial<Work>): Promise<Work | null> {
+export async function updateWork(id: string, work: Partial<Work>): Promise<{ data: Work | null; error: string | null }> {
+  if (!isSupabaseConfigured) {
+    return { data: null, error: 'Supabase not configured. Please check environment variables.' }
+  }
+
   const { data, error } = await supabase
     .from('works')
     .update(work)
@@ -87,14 +115,18 @@ export async function updateWork(id: string, work: Partial<Work>): Promise<Work 
 
   if (error) {
     console.error('Error updating work:', error)
-    return null
+    return { data: null, error: error.message }
   }
 
-  return data
+  return { data, error: null }
 }
 
 // 删除作品
-export async function deleteWork(id: string): Promise<boolean> {
+export async function deleteWork(id: string): Promise<{ success: boolean; error: string | null }> {
+  if (!isSupabaseConfigured) {
+    return { success: false, error: 'Supabase not configured. Please check environment variables.' }
+  }
+
   const { error } = await supabase
     .from('works')
     .delete()
@@ -102,8 +134,8 @@ export async function deleteWork(id: string): Promise<boolean> {
 
   if (error) {
     console.error('Error deleting work:', error)
-    return false
+    return { success: false, error: error.message }
   }
 
-  return true
+  return { success: true, error: null }
 }
