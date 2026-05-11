@@ -95,7 +95,7 @@ function WorkDetailContent() {
 
       {/* Main Image */}
       <section className="py-20">
-        <div className="max-w-[1400px] mx-auto px-6">
+        <div className="max-w-[1400px] mx-auto px-0 md:px-6">
           <div className="aspect-[16/9] bg-surface overflow-hidden cursor-pointer">
             <img
               src={work.image}
@@ -144,11 +144,11 @@ function WorkDetailContent() {
 
       {/* Gallery */}
       <section className="py-20 bg-surface">
-        <div className="max-w-[1400px] mx-auto px-6">
-          <h2 className="font-heading text-3xl md:text-4xl mb-12">Project Gallery</h2>
+        <div className="max-w-[1400px] mx-auto px-0 md:px-6">
+          <h2 className="font-heading text-3xl md:text-4xl mb-12 px-6 md:px-0">Project Gallery</h2>
           <GalleryLightbox 
             images={work.gallery}
-            className="grid md:grid-cols-3 gap-6"
+            className="grid md:grid-cols-3 gap-0 md:gap-6"
           />
         </div>
       </section>
